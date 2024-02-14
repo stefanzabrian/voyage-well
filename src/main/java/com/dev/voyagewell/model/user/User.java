@@ -1,4 +1,4 @@
-package com.dev.voyagewell.model;
+package com.dev.voyagewell.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,11 +21,11 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "nickName")
+    @Column(name = "nick_name")
     private String nickName;
     @Column(name = "accepted_terms_conditions")
     private boolean isTermsAndConditions;

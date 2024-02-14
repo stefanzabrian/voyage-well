@@ -1,4 +1,4 @@
-package com.dev.voyagewell.model;
+package com.dev.voyagewell.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;

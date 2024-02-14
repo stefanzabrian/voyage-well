@@ -1,4 +1,4 @@
-package com.dev.voyagewell.model;
+package com.dev.voyagewell.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,9 +17,9 @@ public class Client {
     private Integer id;
     @Column(name ="phone_number")
     private String phoneNumber;
-    @Column(name = "profile_picture_url")
+    @Column(name = "profile_picture_url", columnDefinition = "LONGTEXT")
     private String profilePictureUrl;
-    @Column(name = "bio_info")
+    @Column(name = "bio_info", columnDefinition = "LONGTEXT")
     private String bioInfo;
 
     public Client(String phoneNumber, String profilePictureUrl, String bioInfo) {
