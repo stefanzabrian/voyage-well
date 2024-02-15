@@ -1,4 +1,4 @@
-package com.dev.voyagewell.repository;
+package com.dev.voyagewell.repository.user;
 
 import com.dev.voyagewell.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

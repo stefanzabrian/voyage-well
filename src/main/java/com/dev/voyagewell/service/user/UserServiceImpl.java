@@ -2,7 +2,7 @@ package com.dev.voyagewell.service.user;
 
 import com.dev.voyagewell.model.user.Role;
 import com.dev.voyagewell.model.user.User;
-import com.dev.voyagewell.repository.UserRepository;
+import com.dev.voyagewell.repository.user.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
