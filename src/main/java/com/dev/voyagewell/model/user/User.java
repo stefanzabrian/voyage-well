@@ -1,6 +1,9 @@
 package com.dev.voyagewell.model.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,18 +21,31 @@ public class User {
     @Column(name = "id")
     private Integer id;
     @Column(name = "email")
+    @Email
+    @NotNull
+    @NotBlank
     private String email;
     @Column(name = "password")
+    @NotNull
+    @NotBlank
     private String password;
     @Column(name = "first_name")
+    @NotNull
+    @NotBlank
     private String firstName;
     @Column(name = "last_name")
+    @NotNull
+    @NotBlank
     private String lastName;
     @Column(name = "nick_name")
+    @NotNull
+    @NotBlank
     private String nickName;
     @Column(name = "accepted_terms_conditions")
+    @NotNull
     private boolean isTermsAndConditions;
     @Column(name = "accepted_privacy_policy")
+    @NotNull
     private boolean isPrivacyPolicy;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

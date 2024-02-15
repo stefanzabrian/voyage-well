@@ -1,6 +1,8 @@
 package com.dev.voyagewell.model.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +18,8 @@ public class Client {
     @Column(name = "id")
     private Integer id;
     @Column(name ="phone_number")
+    @NotNull
+    @NotBlank
     private String phoneNumber;
     @Column(name = "profile_picture_url", columnDefinition = "LONGTEXT")
     private String profilePictureUrl;

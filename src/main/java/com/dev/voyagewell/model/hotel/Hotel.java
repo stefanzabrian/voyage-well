@@ -1,6 +1,8 @@
 package com.dev.voyagewell.model.hotel;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,10 +18,16 @@ public class Hotel {
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
+    @NotNull
+    @NotBlank
     private String name;
     @Column(name = "location")
+    @NotNull
+    @NotBlank
     private String location;
     @Column(name = "description",columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
     private String description;
     @OneToOne
     @JoinColumn(name = "amenities_id")
