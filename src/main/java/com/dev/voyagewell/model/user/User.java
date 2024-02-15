@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Table(name = "user")
 @NoArgsConstructor
@@ -20,32 +21,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "email")
     @Email
     @NotNull
     @NotBlank
+    @Column(name = "email")
     private String email;
+    @NotNull
+    @NotBlank
     @Column(name = "password")
-    @NotNull
-    @NotBlank
     private String password;
+    @NotNull
+    @NotBlank
     @Column(name = "first_name")
-    @NotNull
-    @NotBlank
     private String firstName;
+    @NotNull
+    @NotBlank
     @Column(name = "last_name")
-    @NotNull
-    @NotBlank
     private String lastName;
-    @Column(name = "nick_name")
     @NotNull
     @NotBlank
+    @Column(name = "nick_name")
     private String nickName;
+    @NotNull
     @Column(name = "accepted_terms_conditions")
-    @NotNull
     private boolean isTermsAndConditions;
-    @Column(name = "accepted_privacy_policy")
     @NotNull
+    @Column(name = "accepted_privacy_policy")
     private boolean isPrivacyPolicy;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
