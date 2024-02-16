@@ -73,14 +73,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(RoleDto roleDto) throws ResourceNotFoundException {
-        Role roleToBeDeleted = roleRepository.findById(roleDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Role with id :" + roleDto.getId() + " don't exists"));
+    public void deleteRole(int id ) throws ResourceNotFoundException {
+        Role roleToBeDeleted = roleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Role with id :" + id + " don't exists"));
         try {
             roleRepository.delete(roleToBeDeleted);
         } catch (DataAccessException e) {
             logger.error("Failed to delete role: An unexpected error occurred", e);
-            throw new RuntimeException("Failed to delete role with id: " + roleDto.getId(), e);
+            throw new RuntimeException("Failed to delete role with id: " + id, e);
         } catch (Exception e) {
             // For other unexpected exceptions
             logger.error("Failed to delete role: An unexpected error occurred", e);
