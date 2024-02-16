@@ -1,4 +1,4 @@
-package com.dev.voyagewell.controller.role;
+package com.dev.voyagewell.controller.user.role;
 
 import com.dev.voyagewell.controller.dto.RoleDto;
 import com.dev.voyagewell.service.user.role.RoleService;
