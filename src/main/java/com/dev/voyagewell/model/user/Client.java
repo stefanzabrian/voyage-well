@@ -18,8 +18,6 @@ public class Client {
     @Column(name = "id")
     private Integer id;
     @Column(name ="phone_number")
-    @NotNull
-    @NotBlank
     private String phoneNumber;
     @Column(name = "profile_picture_url", columnDefinition = "LONGTEXT")
     private String profilePictureUrl;

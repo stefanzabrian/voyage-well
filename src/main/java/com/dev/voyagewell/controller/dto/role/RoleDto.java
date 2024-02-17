@@ -1,4 +1,4 @@
-package com.dev.voyagewell.controller.dto;
+package com.dev.voyagewell.controller.dto.role;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

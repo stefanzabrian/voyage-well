@@ -4,4 +4,8 @@
 -- mysql -u username -p {{ at "username" put your database username }}
 -- add password
 -- once in, paste this code ->   CREATE DATABASE IF NOT EXISTS sql_voyage_well_schema;
--- hit-> exit;
+-- then paste this code -> use sql_voyage_well_schema
+-- then paste this code -> INSERT INTO role (name) VALUES ('USER');
+-- then paste this code -> INSERT INTO role (name) VALUES ('EDITOR');
+-- then paste this code -> INSERT INTO role (name) VALUES ('ADMIN');
+-- once created hit-> exit;

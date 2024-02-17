@@ -1,6 +1,6 @@
-package com.dev.voyagewell.controller.user.role;
+package com.dev.voyagewell.controller.admin.role;
 
-import com.dev.voyagewell.controller.dto.RoleDto;
+import com.dev.voyagewell.controller.dto.role.RoleDto;
 import com.dev.voyagewell.service.user.role.RoleService;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;

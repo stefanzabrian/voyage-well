@@ -1,6 +1,6 @@
 package com.dev.voyagewell.service.user.role;
 
-import com.dev.voyagewell.controller.dto.RoleDto;
+import com.dev.voyagewell.controller.dto.role.RoleDto;
 import com.dev.voyagewell.model.user.Role;
 import com.dev.voyagewell.repository.user.RoleRepository;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
@@ -86,5 +86,11 @@ public class RoleServiceImpl implements RoleService {
             logger.error("Failed to delete role: An unexpected error occurred", e);
             throw new RuntimeException("An unexpected error occurred", e);
         }
+    }
+
+    @Override
+    public Role findRoleByName(String name) throws ResourceNotFoundException {
+     return roleRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Role with name :" + name + " don't exists"));
     }
 }

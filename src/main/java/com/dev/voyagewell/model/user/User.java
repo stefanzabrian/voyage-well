@@ -59,11 +59,29 @@ public class User {
     @JoinColumn(name = "cliend_id")
     private Client client;
 
-    public User(String email, String password, String firstName, String lastName, String nickName) {
+    public User(String email, String password, String firstName, String lastName, String nickName, boolean isTermsAndConditions, boolean isPrivacyPolicy) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
+        this.isTermsAndConditions = isTermsAndConditions;
+        this.isPrivacyPolicy = isPrivacyPolicy;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", isTermsAndConditions=" + isTermsAndConditions +
+                ", isPrivacyPolicy=" + isPrivacyPolicy +
+                ", roles=" + roles +
+                ", client=" + client +
+                '}';
     }
 }
