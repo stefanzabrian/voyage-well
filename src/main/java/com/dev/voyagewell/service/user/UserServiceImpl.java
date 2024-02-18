@@ -1,6 +1,7 @@
 package com.dev.voyagewell.service.user;
 
 import com.dev.voyagewell.controller.dto.register.RegisterDto;
+import com.dev.voyagewell.controller.dto.user.UserProfileDto;
 import com.dev.voyagewell.model.user.Client;
 import com.dev.voyagewell.model.user.Role;
 import com.dev.voyagewell.model.user.User;
@@ -97,10 +98,29 @@ public class UserServiceImpl implements UserService {
                 throw new IllegalArgumentException("Not allowed to delete oneself");
             }
             userRepository.delete(userToBeDeleted);
-
+            clientService.delete(userToBeDeleted.getClient());
         } else {
             throw new ResourceNotFoundException("User not found");
         }
+    }
+
+    @Override
+    public UserProfileDto getProfileDtoByEmail(String email) throws ResourceNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User don't exists"));
+        Client client = user.getClient();
+        if (client == null) {
+            throw new ResourceNotFoundException("Client don't exists");
+        }
+
+        UserProfileDto profileDto = new UserProfileDto();
+        profileDto.setFirstName(user.getFirstName());
+        profileDto.setLastName(user.getLastName());
+        profileDto.setNickName(user.getNickName());
+        profileDto.setEmail(user.getEmail());
+        profileDto.setBioInfo(client.getBioInfo());
+        profileDto.setPhoneNumber(client.getPhoneNumber());
+        profileDto.setAvatarUrl(client.getProfilePictureUrl());
+        return profileDto;
     }
 }
 
