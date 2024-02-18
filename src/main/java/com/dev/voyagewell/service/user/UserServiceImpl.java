@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         validateString(newUser.getFirstName(), "First name");
         validateString(newUser.getLastName(), "Last name");
         validateString(newUser.getNickName(), "Nick name");
-        if (newUser.isTermsAndConditions() && newUser.isPrivacyPolicy()) {
+        if (newUser.isAcceptedConditions()) {
             User user = new User();
             user.setEmail(newUser.getEmail());
             user.setPassword(passwordEncoder.encode(newUser.getPassword()));
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
             user.setLastName(newUser.getLastName());
             user.setNickName(newUser.getNickName());
             user.setRoles(newUser.getRoles());
-            user.setTermsAndConditions(newUser.isTermsAndConditions());
-            user.setPrivacyPolicy(newUser.isPrivacyPolicy());
+            user.setTermsAndConditions(newUser.isAcceptedConditions());
+            user.setPrivacyPolicy(newUser.isAcceptedConditions());
 
             Client client = new Client();
             clientService.save(client);

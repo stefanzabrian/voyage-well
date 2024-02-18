@@ -40,8 +40,7 @@ public class RegisterController {
         newUser.setFirstName(registerDto.getFirstName());
         newUser.setLastName(registerDto.getLastName());
         newUser.setNickName(registerDto.getNickName());
-        newUser.setTermsAndConditions(registerDto.isTermsAndConditions());
-        newUser.setPrivacyPolicy(registerDto.isPrivacyPolicy());
+        newUser.setAcceptedConditions(registerDto.isAcceptedConditions());
         try {
             Role role = roleService.findRoleByName("USER");
             newUser.setRoles(Collections.singletonList(role));
