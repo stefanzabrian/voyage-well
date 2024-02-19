@@ -59,6 +59,22 @@ public class UserServiceImpl implements UserService {
         clientService.save(client);
     }
 
+    @Override
+    public String getAvatarUrl(String email) {
+        if (userRepository.findByEmail(email).isPresent()){
+            return userRepository.findByEmail(email).get().getClient().getProfilePictureUrl();
+        }
+        return "";
+    }
+
+    @Override
+    public String getNickName(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            return userRepository.findByEmail(email).get().getNickName();
+        }
+        return "";
+    }
+
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
     }

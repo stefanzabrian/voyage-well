@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
     UserProfileDto getProfileDtoByEmail(String email) throws ResourceNotFoundException;
     void validateString(String value, String fieldName);
     void profileUpdate(String email, UserProfileDto profileDto) throws ResourceNotFoundException;
+    String getAvatarUrl(String email);
+    String getNickName(String email);
 }

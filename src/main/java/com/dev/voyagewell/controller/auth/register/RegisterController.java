@@ -1,4 +1,4 @@
-package com.dev.voyagewell.controller.user.register;
+package com.dev.voyagewell.controller.auth.register;
 
 import com.dev.voyagewell.controller.dto.register.RegisterDto;
 import com.dev.voyagewell.model.user.Role;

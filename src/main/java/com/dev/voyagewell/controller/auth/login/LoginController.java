@@ -1,8 +1,9 @@
-package com.dev.voyagewell.controller.user.login;
+package com.dev.voyagewell.controller.auth.login;
 
 import com.dev.voyagewell.configuration.jwt.JwtGenerator;
 import com.dev.voyagewell.controller.dto.auth.AuthResponseDto;
 import com.dev.voyagewell.controller.dto.login.LoginDto;
+import com.dev.voyagewell.service.user.UserService;
 import com.dev.voyagewell.utils.exception.ErrorDetails;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,13 @@ import java.util.Date;
 public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final JwtGenerator jwtGenerator;
+    private final UserService userService;
 
     @Autowired
-    public LoginController(AuthenticationManager authenticationManager, JwtGenerator jwtGenerator) {
+    public LoginController(AuthenticationManager authenticationManager, JwtGenerator jwtGenerator, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtGenerator = jwtGenerator;
+        this.userService = userService;
     }
 
     @RequestMapping("/login")
@@ -43,6 +46,8 @@ public class LoginController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
             AuthResponseDto authResponseDto = new AuthResponseDto(token);
+            authResponseDto.setAvatarUrl(userService.getAvatarUrl(loginDto.getEmail()));
+            authResponseDto.setNickName(userService.getNickName(loginDto.getEmail()));
             return ResponseEntity.status(HttpStatus.OK).body(authResponseDto);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
