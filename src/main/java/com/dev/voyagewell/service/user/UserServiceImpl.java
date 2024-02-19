@@ -8,6 +8,7 @@ import com.dev.voyagewell.model.user.User;
 import com.dev.voyagewell.repository.user.UserRepository;
 import com.dev.voyagewell.service.user.client.ClientService;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import org.hibernate.ResourceClosedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,10 +33,30 @@ public class UserServiceImpl implements UserService {
         this.clientService = clientService;
     }
 
-    private void validateString(String value, String fieldName) {
+    @Override
+    public void validateString(String value, String fieldName) {
         if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " must not be empty or blank!");
         }
+    }
+
+    @Override
+    public void profileUpdate(String email, UserProfileDto profileDto) throws ResourceNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("user don't exists"));
+
+        Client client = user.getClient();
+
+        user.setFirstName(profileDto.getFirstName());
+        user.setLastName(profileDto.getLastName());
+        user.setNickName(profileDto.getNickName());
+        user.setEmail(profileDto.getEmail());
+        client.setBioInfo(profileDto.getBioInfo());
+        client.setPhoneNumber(profileDto.getPhoneNumber());
+        client.setProfilePictureUrl(profileDto.getAvatarUrl());
+
+        userRepository.save(user);
+        clientService.save(client);
     }
 
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
@@ -106,7 +127,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfileDto getProfileDtoByEmail(String email) throws ResourceNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User don't exists"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User don't exists"));
         Client client = user.getClient();
         if (client == null) {
             throw new ResourceNotFoundException("Client don't exists");

@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService {
     void create(RegisterDto newUser);
     void delete(int id, String authId) throws ResourceNotFoundException;
     UserProfileDto getProfileDtoByEmail(String email) throws ResourceNotFoundException;
+    void validateString(String value, String fieldName);
+    void profileUpdate(String email, UserProfileDto profileDto) throws ResourceNotFoundException;
 }
