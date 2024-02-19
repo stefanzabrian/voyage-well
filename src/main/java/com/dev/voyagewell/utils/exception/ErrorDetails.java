@@ -1,14 +1,21 @@
 package com.dev.voyagewell.utils.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
-
+@NoArgsConstructor
 @Getter
-@AllArgsConstructor
+@Setter
 public class ErrorDetails {
-    private final Date timpestamp;
-    private final String message;
-    private final String details;
+    private Date timestamp;
+    private String message;
+    private String details;
+
+    public ErrorDetails(Date timestamp, String message, String details) {
+        this.timestamp = timestamp;
+        this.message = message;
+        this.details = details;
+    }
 }

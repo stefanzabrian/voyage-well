@@ -2,7 +2,6 @@ package com.dev.voyagewell.controller.user;
 
 import com.dev.voyagewell.controller.dto.user.UserProfileDto;
 import com.dev.voyagewell.service.user.UserService;
-import com.dev.voyagewell.service.user.client.ClientService;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,10 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final ClientService clientService;
 
     @Autowired
-    public UserController(UserService userService, ClientService clientService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.clientService = clientService;
     }
 
     @GetMapping("/profile-view")

@@ -9,7 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
+import java.util.Date;
 import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
@@ -17,10 +19,10 @@ import java.util.List;
 
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<String>> handleValidationException(MethodArgumentNotValidException e) {
+    public ResponseEntity<List<ErrorDetails>> handleValidationException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
-        List<String> errors = bindingResult.getAllErrors().stream()
-                .map(error -> error.getDefaultMessage())
+        List<ErrorDetails> errors = bindingResult.getAllErrors().stream()
+                .map(error -> new ErrorDetails(new Date(), error.getDefaultMessage(), WebRequest.REFERENCE_REQUEST) )
                 .toList();
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
