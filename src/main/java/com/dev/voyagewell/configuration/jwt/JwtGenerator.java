@@ -50,6 +50,13 @@ public class JwtGenerator {
                 .getBody();
         return claims.getSubject();
     }
+    public String getEmailFromForgotPasswordJwt(String token){
+        Claims claims = Jwts.parser()
+                .setSigningKey(SecurityConstants.FORGOT_PASSWORD_JWT_SECRET)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
 
     public boolean validateToken(String token) {
         try {
@@ -60,6 +67,18 @@ public class JwtGenerator {
             return true;
         } catch (Exception e) {
             throw new JwtValidationException("Jwt was expired or incorrect :)");
+        }
+    }
+
+    public boolean validateForgotPasswordToken(String token){
+        try {
+            Jwts
+                    .parser()
+                    .setSigningKey(SecurityConstants.FORGOT_PASSWORD_JWT_SECRET)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            throw new JwtValidationException("Forgot-Password-Token was expired or incorrect");
         }
     }
 }

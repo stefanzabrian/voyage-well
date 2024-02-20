@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/logout").permitAll()
                                 .requestMatchers("/forgot-password").permitAll()
-                                .requestMatchers("/user/reset-password").permitAll()
+                                .requestMatchers("/reset-password").permitAll()
                                 .anyRequest().authenticated()
                 );
         http
@@ -80,8 +80,9 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

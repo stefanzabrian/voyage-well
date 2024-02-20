@@ -1,9 +1,11 @@
 package com.dev.voyagewell.service.user.password;
 
 import com.dev.voyagewell.configuration.jwt.JwtGenerator;
+import com.dev.voyagewell.controller.dto.recover.ResetPasswordDto;
 import com.dev.voyagewell.model.user.User;
 import com.dev.voyagewell.service.mail.MailService;
 import com.dev.voyagewell.service.user.UserService;
+import com.dev.voyagewell.utils.exception.JwtValidationException;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -35,13 +37,13 @@ public class PasswordServiceImpl implements PasswordService {
     @Override
     public void forgotPassword(String email) throws MessagingException, ResourceNotFoundException {
         Optional<User> user = userService.findByEmail(email);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             passwordToken = jwtGenerator.generateForgotPassToken(email);
             try {
-                mailService.sendEmail("voyage-well@gmail.com",
+                mailService.sendEmail("security@voyage-well.com",
                         email,
-                        "Forgot Password requested a reset Link",
-                        "Click the following link to reset your password : http://localhost:5173/reset-password?token=" + passwordToken);
+                        "Voyage-well Recover Account",
+                        "Click the following link to reset your password ->     http://localhost:5173/reset-password?token=" + passwordToken);
             } catch (MessagingException e) {
                 e.printStackTrace();
                 throw new MessagingException("Failed to send mail");
@@ -59,5 +61,19 @@ public class PasswordServiceImpl implements PasswordService {
     @Override
     public String getPasswordToken() {
         return passwordToken;
+    }
+
+    @Override
+    public void resetPassword(String token, ResetPasswordDto resetPasswordDto) throws MessagingException, ResourceNotFoundException {
+        boolean validated = jwtGenerator.validateForgotPasswordToken(token);
+        if (!validated) {
+            throw new JwtValidationException("Forgot-Password-Token was expired or incorrect");
+        }
+        userService.validateString(resetPasswordDto.getPassword(), "Password");
+        userService.validateString(resetPasswordDto.getConfirmPassword(), "Confirm password");
+
+        String email = jwtGenerator.getEmailFromForgotPasswordJwt(token);
+        userService.updatePassword(email, resetPasswordDto.getPassword());
+        resetPasswordToken();
     }
 }

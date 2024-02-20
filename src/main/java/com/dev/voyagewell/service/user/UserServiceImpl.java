@@ -6,9 +6,9 @@ import com.dev.voyagewell.model.user.Client;
 import com.dev.voyagewell.model.user.Role;
 import com.dev.voyagewell.model.user.User;
 import com.dev.voyagewell.repository.user.UserRepository;
+import com.dev.voyagewell.service.mail.MailService;
 import com.dev.voyagewell.service.user.client.ClientService;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
-import org.hibernate.ResourceClosedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +27,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ClientService clientService;
+    private final MailService mailService;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, ClientService clientService) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, ClientService clientService, MailService mailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.clientService = clientService;
+        this.mailService = mailService;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getAvatarUrl(String email) {
-        if (userRepository.findByEmail(email).isPresent()){
+        if (userRepository.findByEmail(email).isPresent()) {
             return userRepository.findByEmail(email).get().getClient().getProfilePictureUrl();
         }
         return "";
@@ -73,6 +76,28 @@ public class UserServiceImpl implements UserService {
             return userRepository.findByEmail(email).get().getNickName();
         }
         return "";
+    }
+
+    @Override
+    public void updatePassword(String email, String password) throws ResourceNotFoundException, MessagingException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User don't exists"));
+        try {
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update new password");
+        }
+        try {
+            mailService.sendEmail(
+                    "security@voyage-well.com",
+                    email,
+                    "Password updated successfully!",
+                    "Password for account with username " + email + " updated successfully!"
+            );
+        } catch (MessagingException e) {
+            throw new MessagingException("Failed to send confirmation mail");
+        }
     }
 
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {

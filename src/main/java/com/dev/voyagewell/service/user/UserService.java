@@ -1,11 +1,13 @@
 package com.dev.voyagewell.service.user;
 
+import com.dev.voyagewell.controller.dto.recover.ResetPasswordDto;
 import com.dev.voyagewell.controller.dto.register.RegisterDto;
 import com.dev.voyagewell.controller.dto.user.UserProfileDto;
 import com.dev.voyagewell.model.user.User;
 import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.mail.MessagingException;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
@@ -17,4 +19,5 @@ public interface UserService extends UserDetailsService {
     void profileUpdate(String email, UserProfileDto profileDto) throws ResourceNotFoundException;
     String getAvatarUrl(String email);
     String getNickName(String email);
+    void updatePassword(String email, String password) throws ResourceNotFoundException, MessagingException;
 }
