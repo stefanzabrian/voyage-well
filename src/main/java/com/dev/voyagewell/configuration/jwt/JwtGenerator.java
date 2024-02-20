@@ -29,6 +29,18 @@ public class JwtGenerator {
                 .compact();
         return token;
     }
+    public String generateForgotPassToken(String email) {
+        Date currentDate = new Date();
+        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
+
+        String token = Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(currentDate)
+                .setExpiration(expireDate)
+                .signWith(SignatureAlgorithm.HS512,SecurityConstants.FORGOT_PASSWORD_JWT_SECRET)
+                .compact();
+        return token;
+    }
 
     public String getEmailFromJwt(String token) {
         Claims claims = Jwts

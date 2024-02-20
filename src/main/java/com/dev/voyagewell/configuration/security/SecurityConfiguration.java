@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/register").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/logout").permitAll()
-                                .requestMatchers("/user/forgot-password").permitAll()
+                                .requestMatchers("/forgot-password").permitAll()
                                 .requestMatchers("/user/reset-password").permitAll()
                                 .anyRequest().authenticated()
                 );
