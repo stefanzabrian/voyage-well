@@ -1,5 +1,6 @@
 package com.dev.voyagewell.service.hotel;
 
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import com.dev.voyagewell.controller.dto.hotel.HotelAddDto;
 import com.dev.voyagewell.model.hotel.Amenities;
 import com.dev.voyagewell.model.hotel.Hotel;
@@ -9,6 +10,9 @@ import com.dev.voyagewell.repository.hotel.HotelRepository;
 import com.dev.voyagewell.repository.hotel.RoomFeaturesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -76,6 +80,14 @@ public class HotelServiceImpl implements HotelService {
                 throw new RuntimeException("Error saving Hotel in DB");
             }
         }
+    }
+
+    @Override
+    public List<Hotel> getAll() throws ResourceNotFoundException {
+        if (hotelRepository.findAll().isEmpty()) {
+            throw new ResourceNotFoundException("No Hotels yet");
+        }
+        return hotelRepository.findAll().stream().toList();
     }
 }
 
