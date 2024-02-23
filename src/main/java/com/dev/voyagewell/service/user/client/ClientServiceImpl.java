@@ -2,7 +2,7 @@ package com.dev.voyagewell.service.user.client;
 
 import com.dev.voyagewell.model.user.Client;
 import com.dev.voyagewell.repository.user.ClientRepository;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -8,7 +8,7 @@ import com.dev.voyagewell.model.user.User;
 import com.dev.voyagewell.repository.user.UserRepository;
 import com.dev.voyagewell.service.mail.MailService;
 import com.dev.voyagewell.service.user.client.ClientService;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

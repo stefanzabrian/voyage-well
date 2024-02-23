@@ -4,7 +4,7 @@ import com.dev.voyagewell.configuration.jwt.JwtGenerator;
 import com.dev.voyagewell.controller.dto.auth.AuthResponseDto;
 import com.dev.voyagewell.controller.dto.login.LoginDto;
 import com.dev.voyagewell.service.user.UserService;
-import com.dev.voyagewell.utils.exception.ErrorDetails;
+import com.dev.voyagewell.configuration.utils.exception.ErrorDetails;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.dev.voyagewell.utils.exception;
+package com.dev.voyagewell.configuration.utils.exception;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 

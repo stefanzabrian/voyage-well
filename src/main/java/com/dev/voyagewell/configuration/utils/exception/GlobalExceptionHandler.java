@@ -1,4 +1,4 @@
-package com.dev.voyagewell.utils.exception;
+package com.dev.voyagewell.configuration.utils.exception;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

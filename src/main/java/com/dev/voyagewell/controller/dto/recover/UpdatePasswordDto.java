@@ -1,6 +1,6 @@
 package com.dev.voyagewell.controller.dto.recover;
 
-import com.dev.voyagewell.utils.validator.FieldMatch;
+import com.dev.voyagewell.configuration.utils.validator.FieldMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

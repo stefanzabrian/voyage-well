@@ -24,10 +24,28 @@ public class Room {
     @Column(name = "number")
     @NotNull
     private Integer number;
-    @Column(name = "picture_url", columnDefinition = "LONGTEXT")
+    @Column(name = "picture_1", columnDefinition = "LONGTEXT")
     @NotNull
     @NotBlank
-    private String pictureUrl;
+    private String picture1;
+    @Column(name = "picture_2", columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
+    private String picture2;
+    @Column(name = "picture_3", columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
+    private String picture3;
+    @Column(name = "picture_4", columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
+    private String picture4;
+    @Column(name = "picture_5", columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
+    private String picture5;
+
+
     @ManyToOne
     @JoinColumn(name = "feature_id")
     private Feature feature;
@@ -35,18 +53,26 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    public Room(Integer number, String pictureUrl, Type type) {
+    public Room(Integer number, String picture1, String picture2, String picture3, String picture4, String picture5) {
         this.number = number;
-        this.pictureUrl = pictureUrl;
-        this.type = type;
+        this.picture1 = picture1;
+        this.picture2 = picture2;
+        this.picture3 = picture3;
+        this.picture4 = picture4;
+        this.picture5 = picture5;
     }
 
     @Override
     public String toString() {
         return "Room{" +
                 "id=" + id +
+                ", hotel=" + hotel +
                 ", number=" + number +
-                ", pictureUrl='" + pictureUrl + '\'' +
+                ", picture1='" + picture1 + '\'' +
+                ", picture2='" + picture2 + '\'' +
+                ", picture3='" + picture3 + '\'' +
+                ", picture4='" + picture4 + '\'' +
+                ", picture5='" + picture5 + '\'' +
                 ", feature=" + feature +
                 ", type=" + type +
                 '}';

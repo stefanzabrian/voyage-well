@@ -3,7 +3,7 @@ package com.dev.voyagewell.service.user.role;
 import com.dev.voyagewell.controller.dto.role.RoleDto;
 import com.dev.voyagewell.model.user.Role;
 import com.dev.voyagewell.repository.user.RoleRepository;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

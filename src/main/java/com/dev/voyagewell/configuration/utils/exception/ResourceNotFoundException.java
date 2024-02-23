@@ -1,4 +1,4 @@
-package com.dev.voyagewell.utils.exception;
+package com.dev.voyagewell.configuration.utils.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

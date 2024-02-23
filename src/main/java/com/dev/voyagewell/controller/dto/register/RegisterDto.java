@@ -1,7 +1,7 @@
 package com.dev.voyagewell.controller.dto.register;
 
 import com.dev.voyagewell.model.user.Role;
-import com.dev.voyagewell.utils.validator.FieldMatch;
+import com.dev.voyagewell.configuration.utils.validator.FieldMatch;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

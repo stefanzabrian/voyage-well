@@ -1,14 +1,13 @@
 package com.dev.voyagewell.configuration.jwt;
 
 import com.dev.voyagewell.service.user.UserService;
-import com.dev.voyagewell.utils.exception.ErrorDetails;
-import com.dev.voyagewell.utils.exception.JwtValidationException;
+import com.dev.voyagewell.configuration.utils.exception.ErrorDetails;
+import com.dev.voyagewell.configuration.utils.exception.JwtValidationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

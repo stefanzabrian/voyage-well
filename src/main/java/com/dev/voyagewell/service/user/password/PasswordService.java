@@ -2,7 +2,7 @@ package com.dev.voyagewell.service.user.password;
 
 import com.dev.voyagewell.controller.dto.recover.ResetPasswordDto;
 import com.dev.voyagewell.controller.dto.recover.UpdatePasswordDto;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 
 import javax.mail.MessagingException;
 

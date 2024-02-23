@@ -1,11 +1,17 @@
 -- to execute this line of code from cmd follow the steps
--- go to start, find search bar and type "cmd",
--- paste this code then hit Enter-> cd C:\Program Files\MySQL\MySQL Server 8.0\bin  {{ CHECK THE VERSION IN YOUR FOLDER }}
--- mysql -u username -p {{ at "username" put your database username }}
--- add password
--- once in, paste this code ->   CREATE DATABASE IF NOT EXISTS sql_voyage_well_schema;
--- then paste this code -> use sql_voyage_well_schema
--- then paste this code -> INSERT INTO role (name) VALUES ('USER');
--- then paste this code -> INSERT INTO role (name) VALUES ('EDITOR');
--- then paste this code -> INSERT INTO role (name) VALUES ('ADMIN');
--- once created hit-> exit;
+--1 - go to start, find search bar and type "cmd",
+--2 - paste this code then hit Enter-> cd C:\Program Files\MySQL\MySQL Server 8.0\bin  {{ CHECK THE VERSION IN YOUR FOLDER }}
+--3 - mysql -u "username" -p {{ at "username" put Your database username }}
+--4 - add password
+--5 - once in, paste this code ->   CREATE DATABASE IF NOT EXISTS sql_voyage_well_schema;
+--6 - then paste this code -> use sql_voyage_well_schema
+--    Database changed
+--7 - then paste this code -> INSERT INTO role (name) VALUES ('USER');
+--    Query OK, 1 row affected (0.01 sec)
+--8 - then paste this code -> INSERT INTO role (name) VALUES ('EDITOR');
+--    Query OK, 1 row affected (0.01 sec)
+--9 - then paste this code -> INSERT INTO role (name) VALUES ('ADMIN');
+--    Query OK, 1 row affected (0.01 sec)
+--0 - once created hit-> exit;
+--    Bye
+--    can close now the cmd and run the app :)

@@ -1,6 +1,6 @@
 package com.dev.voyagewell.configuration.jwt;
 
-import com.dev.voyagewell.utils.exception.JwtValidationException;
+import com.dev.voyagewell.configuration.utils.exception.JwtValidationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

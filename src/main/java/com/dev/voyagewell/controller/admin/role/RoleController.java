@@ -2,7 +2,7 @@ package com.dev.voyagewell.controller.admin.role;
 
 import com.dev.voyagewell.controller.dto.role.RoleDto;
 import com.dev.voyagewell.service.user.role.RoleService;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

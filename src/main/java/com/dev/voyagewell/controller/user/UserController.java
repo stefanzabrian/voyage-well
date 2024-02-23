@@ -2,7 +2,7 @@ package com.dev.voyagewell.controller.user;
 
 import com.dev.voyagewell.controller.dto.user.UserProfileDto;
 import com.dev.voyagewell.service.user.UserService;
-import com.dev.voyagewell.utils.exception.ResourceNotFoundException;
+import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

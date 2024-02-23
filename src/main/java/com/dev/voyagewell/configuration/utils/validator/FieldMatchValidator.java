@@ -1,4 +1,4 @@
-package com.dev.voyagewell.utils.validator;
+package com.dev.voyagewell.configuration.utils.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
