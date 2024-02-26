@@ -9,7 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class HotelAddDto {
+public class HotelDto {
+    private int id;
     private String hotelName;
     private String location;
     private String description;
