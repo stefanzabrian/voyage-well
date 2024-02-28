@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class HotelDto {
+public class HotelAddDto {
     private int id;
     private String hotelName;
     private String location;
