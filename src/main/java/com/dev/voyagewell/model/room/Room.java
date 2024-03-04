@@ -23,7 +23,11 @@ public class Room {
     private Hotel hotel;
     @Column(name = "number")
     @NotNull
-    private Integer number;
+    private String number;
+    @Column(name = "description", columnDefinition = "LONGTEXT")
+    @NotNull
+    @NotBlank
+    private String description;
     @Column(name = "picture_1", columnDefinition = "LONGTEXT")
     @NotNull
     @NotBlank
@@ -46,14 +50,14 @@ public class Room {
     private String picture5;
 
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "feature_id")
     private Feature feature;
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    public Room(Integer number, String picture1, String picture2, String picture3, String picture4, String picture5) {
+    public Room(String number, String picture1, String picture2, String picture3, String picture4, String picture5) {
         this.number = number;
         this.picture1 = picture1;
         this.picture2 = picture2;

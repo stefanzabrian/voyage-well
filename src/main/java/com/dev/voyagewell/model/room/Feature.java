@@ -31,9 +31,6 @@ public class Feature {
     private boolean isHeat;
     @Column(name = "is_room_service")
     private boolean isRoomService;
-    // One feature can be associated with multiple rooms, so it's One-to-Many
-    @OneToMany(mappedBy = "feature") // mappedBy indicates the field in the owning side (Room)
-    private List<Room> rooms;
 
 
     public Feature(boolean isWifi, boolean isBalcony, boolean isBathroom, boolean isTv, boolean isAirConditioning, boolean isHeat, boolean isRoomService) {
