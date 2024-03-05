@@ -2,6 +2,7 @@ package com.dev.voyagewell.service.room;
 
 import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import com.dev.voyagewell.controller.dto.room.RoomAddDto;
+import com.dev.voyagewell.controller.dto.room.RoomDtoResponse;
 import com.dev.voyagewell.model.hotel.Hotel;
 import com.dev.voyagewell.model.room.Feature;
 import com.dev.voyagewell.model.room.Room;
@@ -11,6 +12,9 @@ import com.dev.voyagewell.repository.room.RoomRepository;
 import com.dev.voyagewell.service.hotel.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -64,4 +68,25 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
+    @Override
+    public List<RoomDtoResponse> getAll(int id) throws ResourceNotFoundException {
+        List<Room> hotelsRooms = roomRepository.findAllByHotelId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No rooms for hotel with id: " + id));
+        List<RoomDtoResponse> listToBeReturned = new ArrayList<>();
+        hotelsRooms.forEach(room -> {
+            RoomDtoResponse newRoom = new RoomDtoResponse();
+            newRoom.setId(room.getId());
+            newRoom.setNumber(room.getNumber());
+            newRoom.setDescription(room.getDescription());
+            newRoom.setFeature(room.getFeature());
+            newRoom.setType(room.getType());
+            newRoom.setPicture1(room.getPicture1());
+            newRoom.setPicture2(room.getPicture2());
+            newRoom.setPicture3(room.getPicture3());
+            newRoom.setPicture4(room.getPicture4());
+            newRoom.setPicture5(room.getPicture5());
+            listToBeReturned.add(newRoom);
+        });
+        return listToBeReturned;
+    }
 }

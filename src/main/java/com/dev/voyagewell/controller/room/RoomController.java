@@ -28,9 +28,17 @@ public class RoomController {
         try {
             roomService.add(id, roomAddDto);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Room Added Successfully!", request.getDescription(false)));
-        } catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException | RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
-        } catch (RuntimeException e) {
+        }
+    }
+
+    @GetMapping("/all/{id}")
+    public ResponseEntity<?> allRoomsByHotel(@PathVariable(name = "id") int id, WebRequest request) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(roomService.getAll(id));
+        } catch (ResourceNotFoundException | RuntimeException e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
