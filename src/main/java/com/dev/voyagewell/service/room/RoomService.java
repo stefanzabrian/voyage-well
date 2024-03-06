@@ -11,6 +11,7 @@ public interface RoomService {
     void add (int id, RoomAddDto roomAddDto) throws ResourceNotFoundException;
     List<RoomDtoResponse> getAll(int id) throws ResourceNotFoundException;
 
+    RoomDtoResponse getById(int id) throws ResourceNotFoundException;
 
 
 }

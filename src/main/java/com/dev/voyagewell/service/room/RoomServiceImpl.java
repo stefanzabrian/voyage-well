@@ -89,4 +89,22 @@ public class RoomServiceImpl implements RoomService {
         });
         return listToBeReturned;
     }
+
+    @Override
+    public RoomDtoResponse getById(int id) throws ResourceNotFoundException {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room does not exists with id: " + id));
+        RoomDtoResponse dtoResponse = new RoomDtoResponse();
+        dtoResponse.setId(room.getId());
+        dtoResponse.setType(room.getType());
+        dtoResponse.setFeature(room.getFeature());
+        dtoResponse.setDescription(room.getDescription());
+        dtoResponse.setNumber(room.getNumber());
+        dtoResponse.setPicture1(room.getPicture1());
+        dtoResponse.setPicture2(room.getPicture2());
+        dtoResponse.setPicture3(room.getPicture3());
+        dtoResponse.setPicture4(room.getPicture4());
+        dtoResponse.setPicture5(room.getPicture5());
+        return dtoResponse;
+    }
 }
