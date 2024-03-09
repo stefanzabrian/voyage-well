@@ -107,4 +107,29 @@ public class RoomServiceImpl implements RoomService {
         dtoResponse.setPicture5(room.getPicture5());
         return dtoResponse;
     }
+
+    @Override
+    public void update(int id, RoomDtoResponse roomDtoResponse) throws ResourceNotFoundException {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room does not exists with id: " + id));
+        room.setType(roomDtoResponse.getType());
+        room.setFeature(roomDtoResponse.getFeature());
+        room.setDescription(roomDtoResponse.getDescription());
+        room.setNumber(roomDtoResponse.getNumber());
+        room.setPicture1(roomDtoResponse.getPicture1());
+        room.setPicture2(roomDtoResponse.getPicture2());
+        room.setPicture3(roomDtoResponse.getPicture3());
+        room.setPicture4(roomDtoResponse.getPicture4());
+        room.setPicture5(roomDtoResponse.getPicture5());
+        try {
+            featureRepository.save(room.getFeature());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        try {
+            roomRepository.save(room);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
