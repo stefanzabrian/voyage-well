@@ -83,6 +83,20 @@ public class RoomController {
             logger.error("Internal server error while updating room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRoomById(@PathVariable(value = "id") int id, WebRequest request) {
+        try {
+            roomService.delete(id);
+            logger.info("Deleted room, for room ID: {}", id);
+            return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Room Deleted Successfully! Id: " +id , request.getDescription(false)));
+        } catch (ResourceNotFoundException e) {
+            logger.error("Error fetching room details for room ID {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
+        } catch (RuntimeException e){
+            logger.error("Internal server error while updating room details for room ID {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
+        }
     }
 }

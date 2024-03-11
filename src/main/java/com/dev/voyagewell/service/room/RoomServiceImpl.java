@@ -10,10 +10,12 @@ import com.dev.voyagewell.model.room.Type;
 import com.dev.voyagewell.repository.room.FeatureRepository;
 import com.dev.voyagewell.repository.room.RoomRepository;
 import com.dev.voyagewell.service.hotel.HotelService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -131,5 +133,38 @@ public class RoomServiceImpl implements RoomService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public void delete(int id) throws ResourceNotFoundException {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room dont exist, Id: " + id ));
+        try {
+            featureRepository.delete(room.getFeature());
+            try {
+
+                roomRepository.delete(room);
+            } catch (Exception e){
+                throw new RuntimeException("Error deleting the room in DB");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error deleting room's Feature");
+        }
+    }
+
+    // daily challenge
+    private static  List<Integer> minMax(List<Integer> givenList) {
+        List<Integer> result = new ArrayList<>();
+        if (givenList == null || givenList.isEmpty()) {
+            return result; // Return empty list if input is null or empty, we can also throw a custom exception anyway
+        }
+        int min = Collections.min(givenList);
+        int max = Collections.max(givenList);
+
+        result.add(min);
+        result.add(max);
+
+        return result;
     }
 }

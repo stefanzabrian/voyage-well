@@ -13,6 +13,7 @@ public interface RoomService {
 
     RoomDtoResponse getById(int id) throws ResourceNotFoundException;
     void update(int id, RoomDtoResponse roomDtoResponse) throws ResourceNotFoundException;
+    void delete(int id) throws ResourceNotFoundException;
 
 
 }
