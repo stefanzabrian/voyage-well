@@ -18,12 +18,16 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
     @Column(name = "number")
     @NotNull
     private String number;
+    @Column(name = "price")
+    @NotNull
+    @NotBlank
+    private String price;
     @Column(name = "description", columnDefinition = "LONGTEXT")
     @NotNull
     @NotBlank
@@ -57,13 +61,17 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    public Room(String number, String picture1, String picture2, String picture3, String picture4, String picture5) {
+
+    public Room(String number, String price, String description, String picture1, String picture2, String picture3, String picture4, String picture5, Type type) {
         this.number = number;
+        this.price = price;
+        this.description = description;
         this.picture1 = picture1;
         this.picture2 = picture2;
         this.picture3 = picture3;
         this.picture4 = picture4;
         this.picture5 = picture5;
+        this.type = type;
     }
 
     @Override
@@ -71,7 +79,9 @@ public class Room {
         return "Room{" +
                 "id=" + id +
                 ", hotel=" + hotel +
-                ", number=" + number +
+                ", number='" + number + '\'' +
+                ", price='" + price + '\'' +
+                ", description='" + description + '\'' +
                 ", picture1='" + picture1 + '\'' +
                 ", picture2='" + picture2 + '\'' +
                 ", picture3='" + picture3 + '\'' +

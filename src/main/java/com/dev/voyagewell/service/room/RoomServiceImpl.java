@@ -39,12 +39,14 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    @Transactional(rollbackOn = Exception.class)
     public void add(int id, RoomAddDto roomAddDto) throws ResourceNotFoundException {
         Hotel hotel = hotelService.getHotelById(id);
 
         Room roomToBeAdded = new Room();
         roomToBeAdded.setHotel(hotel);
         roomToBeAdded.setNumber(roomAddDto.getNumber());
+        roomToBeAdded.setPrice(roomAddDto.getPrice());
         roomToBeAdded.setDescription(roomAddDto.getDescription());
         roomToBeAdded.setPicture1(roomAddDto.getPicture1());
         roomToBeAdded.setPicture2(roomAddDto.getPicture2());
@@ -79,7 +81,7 @@ public class RoomServiceImpl implements RoomService {
             throw new RuntimeException("Failed to save room in DB");
         }
 
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now().atStartOfDay().toLocalDate();
 
         LocalDate endDate = currentDate.plusYears(1);
 
@@ -99,7 +101,6 @@ public class RoomServiceImpl implements RoomService {
             }
             currentDate = currentDate.plusDays(1);
         }
-
     }
 
     @Override
@@ -111,6 +112,7 @@ public class RoomServiceImpl implements RoomService {
             RoomDtoResponse newRoom = new RoomDtoResponse();
             newRoom.setId(room.getId());
             newRoom.setNumber(room.getNumber());
+            newRoom.setPrice(room.getPrice());
             newRoom.setDescription(room.getDescription());
             newRoom.setFeature(room.getFeature());
             newRoom.setType(room.getType());
@@ -130,6 +132,7 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(() -> new ResourceNotFoundException("Room does not exists with id: " + id));
         RoomDtoResponse dtoResponse = new RoomDtoResponse();
         dtoResponse.setId(room.getId());
+        dtoResponse.setPrice(room.getPrice());
         dtoResponse.setType(room.getType());
         dtoResponse.setFeature(room.getFeature());
         dtoResponse.setDescription(room.getDescription());
@@ -147,6 +150,7 @@ public class RoomServiceImpl implements RoomService {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Room does not exists with id: " + id));
         room.setType(roomDtoResponse.getType());
+        room.setPrice(roomDtoResponse.getPrice());
         room.setFeature(roomDtoResponse.getFeature());
         room.setDescription(roomDtoResponse.getDescription());
         room.setNumber(roomDtoResponse.getNumber());

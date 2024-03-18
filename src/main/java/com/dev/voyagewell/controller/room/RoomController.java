@@ -31,13 +31,13 @@ public class RoomController {
     public ResponseEntity<?> addRoomByHotelId(@PathVariable(name = "id") int id, @Valid @RequestBody RoomAddDto roomAddDto, WebRequest request) {
         try {
             roomService.add(id, roomAddDto);
-            logger.info("Controller: Room added successfully for hotel ID: {}", id);
+            logger.info("Room Controller: Room added successfully for hotel ID: {}", id);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Room Added Successfully!", request.getDescription(false)));
         } catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error adding room with ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Error adding room with ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         } catch (RuntimeException e) {
-            logger.error("Controller: Internal server error while adding room with ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Internal server error while adding room with ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
@@ -45,13 +45,13 @@ public class RoomController {
     @GetMapping("/all/{id}")
     public ResponseEntity<?> allRoomsByHotel(@PathVariable(name = "id") int id, WebRequest request) {
         try {
-            logger.info("Controller: Fetching all rooms for hotel ID: {}", id);
+            logger.info("Room Controller: Fetching all rooms for hotel ID: {}", id);
             return ResponseEntity.status(HttpStatus.OK).body(roomService.getAll(id));
         } catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error fetching rooms for hotel ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Error fetching rooms for hotel ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         } catch (RuntimeException e) {
-            logger.error("Controller: Internal server error while fetching rooms for hotel ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Internal server error while fetching rooms for hotel ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
@@ -59,13 +59,13 @@ public class RoomController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable(value = "id") int id, WebRequest request) {
         try {
-            logger.info("Controller: Fetching room details for room ID: {}", id);
+            logger.info("Room Controller: Fetching room details for room ID: {}", id);
             return ResponseEntity.status(HttpStatus.OK).body(roomService.getById(id));
         } catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         } catch (RuntimeException e) {
-            logger.error("Controller: Internal server error while fetching room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Internal server error while fetching room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
@@ -74,13 +74,13 @@ public class RoomController {
     public ResponseEntity<?> roomUpdate(@PathVariable(name = "id") int id, @RequestBody @Valid RoomDtoResponse roomDtoResponse, WebRequest request) {
         try {
             roomService.update(id, roomDtoResponse);
-            logger.info("Controller: Updated room details for room ID: {}", id);
+            logger.info("Room Controller: Updated room details for room ID: {}", id);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Room Added Successfully!", request.getDescription(false)));
         } catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         } catch (RuntimeException e) {
-            logger.error("Controller: Internal server error while updating room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Internal server error while updating room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
@@ -89,13 +89,13 @@ public class RoomController {
     public ResponseEntity<?> deleteRoomById(@PathVariable(value = "id") int id, WebRequest request) {
         try {
             roomService.delete(id);
-            logger.info("Controller: Deleted room, for room ID: {}", id);
+            logger.info("Room Controller: Deleted room, for room ID: {}", id);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Room Deleted Successfully! Id: " +id , request.getDescription(false)));
         } catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Error fetching room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         } catch (RuntimeException e){
-            logger.error("Controller: Internal server error while updating room details for room ID {}: {}", id, e.getMessage());
+            logger.error("Room Controller: Internal server error while deleting room details for room ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }

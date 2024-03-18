@@ -16,6 +16,9 @@ public class RoomAddDto {
     private String number;
     @NotBlank
     @NotNull
+    private String price;
+    @NotBlank
+    @NotNull
     private String description;
     @NotBlank
     @NotNull

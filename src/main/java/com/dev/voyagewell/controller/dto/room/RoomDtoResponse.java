@@ -12,6 +12,7 @@ import lombok.*;
 public class RoomDtoResponse {
     private int id;
     private String number;
+    private String price;
     private String description;
     private String picture1;
     private String picture2;
