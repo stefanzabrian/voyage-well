@@ -2,6 +2,8 @@ package com.dev.voyagewell.service.booking;
 
 import com.dev.voyagewell.configuration.utils.exception.ResourceNotFoundException;
 import com.dev.voyagewell.controller.dto.booking.AddBookingDto;
+import com.dev.voyagewell.controller.dto.calendar.CalendarDto;
+import com.dev.voyagewell.controller.dto.calendar.DateDto;
 import com.dev.voyagewell.controller.room.RoomController;
 import com.dev.voyagewell.model.calendar.Booking;
 import com.dev.voyagewell.model.calendar.BookingCalendar;
@@ -20,14 +22,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -128,5 +129,50 @@ public class BookingServiceImpl implements BookingService {
         } catch (DateTimeParseException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<CalendarDto> getCalendarByRoomIdAndMonthAndYear(int roomId, int month, int year) throws ResourceNotFoundException {
+        List<Calendar> allCalendarsForRoom = calendarRepository.findAllByRoomId(roomId);
+        if(allCalendarsForRoom.isEmpty()){
+            throw new ResourceNotFoundException("Calendars dont exist for room with ID: " + roomId);
+        }
+        // Define start and end dates for the specified month and year in UTC timezone
+        java.util.Calendar startDate = java.util.Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        startDate.set(year, month - 1, 1, 0, 0, 0); // Month is 0-indexed in Calendar
+        startDate.set(java.util.Calendar.MILLISECOND, 0);
+
+        java.util.Calendar endDate = java.util.Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        endDate.set(year, month - 1, startDate.getActualMaximum(java.util.Calendar.DAY_OF_MONTH), 23, 59, 59); // Set to last day of month in UTC timezone
+        endDate.set(java.util.Calendar.MILLISECOND, 999);
+
+
+
+        List<CalendarDto> filteredCalendars = allCalendarsForRoom.stream()
+                .filter( calendar -> {
+                    java.util.Calendar cal = java.util.Calendar.getInstance();
+                    cal.setTime(calendar.getDate());
+                    return cal.after(startDate) && cal.before(endDate);
+                })
+                .map(calendar -> {
+                    CalendarDto calendarDto = new CalendarDto();
+                    calendarDto.setId(calendar.getId());
+                    calendarDto.setDate(mapDateDto(calendar.getDate())); // Mapping DateDto
+                    calendarDto.setAvailable(calendar.isAvailable());
+                    return calendarDto;
+                })
+                .collect(Collectors.toList());
+
+        return filteredCalendars;
+    }
+    // Helper method to map Date to DateDto
+    private DateDto mapDateDto(Date date) {
+        java.util.Calendar calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("UTC+1"));
+        calendar.setTime(date);
+        return new DateDto(
+                Integer.toString(calendar.get(java.util.Calendar.YEAR)),
+                Integer.toString(calendar.get(java.util.Calendar.MONTH) + 1), // Month is 0-indexed
+                Integer.toString(calendar.get(java.util.Calendar.DATE))
+        );
     }
 }

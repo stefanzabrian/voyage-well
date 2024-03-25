@@ -33,14 +33,25 @@ public class BookingController {
     public ResponseEntity<?> newBooking(@PathVariable(value = "id") int roomId, @Valid @RequestBody AddBookingDto addBookingDto, Principal principal, WebRequest request) {
         try {
             bookingService.createBooking(roomId, addBookingDto, principal);
-            logger.info("Controller: Booking added successfully for room ID: {}", roomId);
+            logger.info("Booking Controller: Booking added successfully for room ID: {}", roomId);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorDetails(new Date(), "Booking Added Successfully!", request.getDescription(false)));
-        }catch (ResourceNotFoundException e) {
-            logger.error("Controller: Error adding booking for room ID {}: {}", roomId, e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            logger.error("Booking Controller: Error adding booking for room ID {}: {}", roomId, e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
-        } catch (RuntimeException e){
-            logger.error("Controller: Internal server error while adding Booking for room with ID {}: {}", roomId, e.getMessage());
+        } catch (RuntimeException e) {
+            logger.error("Booking Controller: Internal server error while adding Booking for room with ID {}: {}", roomId, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
+        }
+    }
+
+    @GetMapping("/calendar")
+    public ResponseEntity<?> calendarByMonthAndYear(@RequestParam int roomId, @RequestParam int month, @RequestParam int year, WebRequest request) {
+        try {
+            logger.info("Booking Controller: Fetching Calendar for room ID: {}, Month : {}, Year : {}", roomId, month, year);
+            return ResponseEntity.status(HttpStatus.OK).body(bookingService.getCalendarByRoomIdAndMonthAndYear(roomId, month, year));
+        } catch (ResourceNotFoundException e){
+            logger.error("Booking Controller: Fetching Calendar for room ID: {}, Month : {}, Year : {}, Error : {}", roomId, month, year ,e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false)));
         }
     }
 
